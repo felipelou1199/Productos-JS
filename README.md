@@ -2,6 +2,10 @@
 
 Este es un proyecto donde se muestra una lista de productos obtenidos desde una API externa.
 
+## Proyecto
+Puedes ver el proyecto funcionando aquí:  
+[https://felipelou1199.github.io/Productos-JS/](https://felipelou1199.github.io/Productos-JS/)
+
 ## Descripción
 
 Usé HTML y Bootstrap para darle estilo a las tarjetas y a los botones.  
