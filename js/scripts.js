@@ -1,10 +1,11 @@
 const main = document.getElementsByTagName("main").item(0);
 const cardsContainer = document.getElementById("cards-container");
 const URLMain = "https://fakestoreapi.com/products/";
+const ulMenu = document.getElementById("ulMenu");
 
-function getData() {
+function getData(cat) {
     const options = {"method": "GET"};
-    fetch(URLMain, options)
+    fetch(URLMain+cat, options)
         .then((response) => {
             console.log(response);
             response.json()
@@ -30,9 +31,34 @@ function getData() {
         });
 }//Getdata
 
-getData();
+function getCategories() {
+    const options = {"method": "GET"};
+    fetch(URLMain+"categories/", options)
+    
+        .then((response) => {
+            response.json()
+                .then((res) => {
+                    res.forEach((cat)=>{
+                        // Se agregan las categorias al dropdown
+                        ulMenu.insertAdjacentHTML("afterbegin",
+                            `<li><a class="dropdown-item" onclick="getData('category/${encodeURI(cat).replace("'","%27")}')">${cat}</a></li>`
+                        );
+                    })
+                });
+        })
+        .catch((err) => {
+            main.insertAdjacentHTML(
+                "beforeend",
+                `<div class="alert alert-danger" role="alert">
+                                            ${err.message}
+                                            </div>`)
+        });
+}//GetCategories
 
+getCategories();
+getData("");
 function createCards(prods) {
+    cardsContainer.innerHTML="";
     prods.forEach(e => {
         let descripcion = e.description.slice(0,80) + " ...";
         console.log("este es el arreglo", e);
@@ -45,7 +71,7 @@ function createCards(prods) {
                                 <h6 class="card-title">${e.category}</h6>
                                 <p class="card-text">${descripcion}</p>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${e.id}">
-                                            Mas informacion
+                                            Más informacion
                                             </button>
                                             <!-- Modal -->
                                 <div class="modal fade" id="exampleModal${e.id}" tabindex="-1" aria-labelledby="exampleModalLabel${e.id}" aria-hidden="true">
