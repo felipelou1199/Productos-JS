@@ -7,17 +7,9 @@ function getData(cat) {
     const options = {"method": "GET"};
     fetch(URLMain+cat, options)
         .then((response) => {
-            console.log(response);
+            // console.log(response);
             response.json()
                 .then((res) => {
-                    console.log(res.length)
-                    console.log(res)
-                    console.log(res[0].description)
-                    console.log(res[0].id)
-                    console.log(res[0].price)
-                    console.log(res[0].rating)
-                    console.log(res[0].rating.count)
-                    console.log(res[0].category)
                     createCards(res);
                 })
                 .catch()
@@ -61,7 +53,6 @@ function createCards(prods) {
     cardsContainer.innerHTML="";
     prods.forEach(e => {
         let descripcion = e.description.slice(0,80) + " ...";
-        console.log("este es el arreglo", e);
         cardsContainer.insertAdjacentHTML("beforeend",
             `
                                 <div class="card d-grid" style="width: 18rem;">
